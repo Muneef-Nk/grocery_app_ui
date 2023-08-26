@@ -64,8 +64,16 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<String?> items=["kichi", "calicut", "bangalore"];
-  String? selectedItem="select";
+  String dropdownvalue = 'Kochi';
+
+  // List of items in our dropdown menu
+  var items = [
+    'Kochi',
+    'Calicut',
+    'Bangalore',
+    'kollam',
+    'Malappuram',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -73,17 +81,24 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         actions: [
           Icon(Icons.location_on),
-         DropdownButton(
-          value: selectedItem,
-           onChanged: (newValue){
+        DropdownButton(
+            value: dropdownvalue,
+            icon: const Icon(Icons.keyboard_arrow_down, color: Colors.white,),
+            items: items.map((String items) {
+              return DropdownMenuItem(
+                value: items,
+                child: Text(items, style: TextStyle(fontSize: 15, color: Colors.white),),
+              );
+            }).toList(),
+          onChanged: (String? newValue) {
             setState(() {
-              selectedItem=newValue;
+              dropdownvalue = newValue!;
             });
-           },
-           items: items.map((valueItem){
-             return DropdownMenuItem(child: Text(valueItme), value: valueItme,)
-           }),
-         )
+          },
+        ),
+          SizedBox(
+            width: 3,
+          )
         ],
         backgroundColor: Colors.green,
         title: const Text("Farmers Fresh zone"),
